@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   files_pipe.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rapheww <rapheww@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lchambos <lchambos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 23:53:26 by lchambos          #+#    #+#             */
-/*   Updated: 2026/03/24 13:33:49 by rapheww          ###   ########.fr       */
+/*   Updated: 2026/03/24 20:13:42 by lchambos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	open_outfile(t_data *d, t_cmds *cmds)
 		d->fd_out = STDOUT_FILENO;
 }
 
-void	loop_heredoc_empty(int fd_in, t_cmds *cmds)
+static void	loop_heredoc_empty(int fd_in, t_cmds *cmds)
 {
 	char	*line;
 
@@ -61,7 +61,7 @@ void	loop_heredoc_empty(int fd_in, t_cmds *cmds)
 	}
 }
 
-void	loop_heredoc(int fd_in, int fd_tmp, t_cmds *cmds)
+static void	loop_heredoc(int fd_in, int fd_tmp, t_cmds *cmds)
 {
 	char	*line;
 
@@ -69,11 +69,13 @@ void	loop_heredoc(int fd_in, int fd_tmp, t_cmds *cmds)
 	while (1)
 	{
 		ft_putstr_fd("heredoc > ", 1);
-		line = get_next_line(fd_in);
+		line = readline(fd_in);
 		if (!line)
 		{
 			if (errno == EINTR)
 				return ;
+			ft_putstr_fd(HEREDOC, 2);
+			msg(cmds->limiter, "')\n", 2);
 			break ;
 		}
 		if (ft_strncmp(line, cmds->limiter, ft_strlen(cmds->limiter)) == 0
@@ -89,15 +91,10 @@ void	loop_heredoc(int fd_in, int fd_tmp, t_cmds *cmds)
 
 void	open_heredoc(t_cmds *cmds, t_shell *s)
 {
-	int					fd_tmp;
-	struct sigaction	sa;
-	struct sigaction	old_sa;
+	int	fd_tmp;
 
 	fd_tmp = 0;
-	sa.sa_handler = heredoc_handler;
-	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = 0;
-	sigaction(SIGINT, &sa, &old_sa);
+	heredoc_signal_handler();
 	if (cmds->heredoc == 2)
 	{
 		fd_tmp = open("infile.tmp", O_CREAT | O_WRONLY | O_TRUNC, 0644);

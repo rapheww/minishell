@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rapheww <rapheww@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lchambos <lchambos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 22:47:45 by lchambos          #+#    #+#             */
-/*   Updated: 2026/03/24 15:12:06 by rapheww          ###   ########.fr       */
+/*   Updated: 2026/03/24 19:59:12 by lchambos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # define USAGE "Please run the program with no arguments."
+# define HEREDOC "\nminishell: warning: heredoc delimited by EOF (wanted `"
 
 # include "GNL/get_next_line.h"
 # include "libft/libft.h"
@@ -189,7 +190,7 @@ int					env_getsize(t_env *env);
 t_env				*env_new(char *key, char *value);
 int					env_addback(t_env **env, t_env *new);
 void				handler(int num);
-void				heredoc_handler(int sig);
+void				heredoc_signal_handler(void);
 
 // Pipex part
 char				*get_cmd(char *cmd, t_shell *shell);
@@ -197,7 +198,7 @@ char				*get_exec(char *cmd, char **envp);
 char				*get_path(char *cmd, char **paths);
 void				open_infile(t_data *d, t_cmds *cmds, t_shell *shell);
 void				open_outfile(t_data *d, t_cmds *cmds);
-void				open_heredoc(t_cmds *cmds, t_shell *shell);
+void					open_heredoc(t_cmds *cmds, t_shell *shell);
 void				exit_error(int error_status, t_shell *shell);
 void				exit_error_full(int error_status, t_shell *shell);
 void				free_strs(char *str, char **strs);

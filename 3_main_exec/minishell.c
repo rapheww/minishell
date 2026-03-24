@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rapheww <rapheww@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lchambos <lchambos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 19:57:09 by lchambos          #+#    #+#             */
-/*   Updated: 2026/03/24 15:16:18 by rapheww          ###   ########.fr       */
+/*   Updated: 2026/03/24 19:48:16 by lchambos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,11 @@ static void	start_minishell(char *str, t_shell *shell)
 	if (check_double_token(shell->lexer))
 	{
 		shell->env->exit_code = 2;
-		return (free_lexer_null(&shell->lexer), 2);
+		return (free_lexer_null(&shell->lexer));
 	}
 	shell->data = parse_lexer(&shell->lexer, &shell);
 	if (!shell->data)
-	{
-		if (shell->lexer)
-			return (free_lexer_null(&shell->lexer));
-	}
+		return (free_lexer_null(&shell->lexer));
 	expand(&shell->data->cmds, shell->env, shell->data);
 	if (shell->lexer)
 		shell->env->exit_code = launch_cmds(shell);
