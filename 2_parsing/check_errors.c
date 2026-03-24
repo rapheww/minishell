@@ -3,14 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   check_errors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchaumei <rchaumei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rapheww <rapheww@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 21:48:08 by rchaumei          #+#    #+#             */
-/*   Updated: 2026/03/23 20:37:50 by rchaumei         ###   ########.fr       */
+/*   Updated: 2026/03/24 15:13:52 by rapheww          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+// static int	is_directory(const char *path)
+// {
+// 	struct stat	st;
+
+// 	if (lstat(path, &st) == -1)
+// 		return (0);
+// 	return (S_ISDIR(st.st_mode));
+// }
 
 static char	*token_value(t_token_type type)
 {
@@ -34,6 +43,9 @@ int	check_double_token(t_token *lexer)
 		return (printf("syntax error near unexpected token `|'\n"), 1);
 	while (lexer)
 	{
+		if (lexer->type == TOKEN_WORD && lexer->value[0] != '\0'
+			&& !ft_strncmp(lexer->value, "&&", ft_strlen(lexer->value)))
+			return (printf("&& not allowed\n"), 1);
 		if (lexer->type == TOKEN_PIPE && (lexer->next == NULL
 				|| lexer->next->type == TOKEN_PIPE))
 			return (printf("syntax error near unexpected token `|'\n"), 1);

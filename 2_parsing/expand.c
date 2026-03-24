@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchaumei <rchaumei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rapheww <rapheww@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 15:49:08 by rchaumei          #+#    #+#             */
-/*   Updated: 2026/03/23 19:20:49 by rchaumei         ###   ########.fr       */
+/*   Updated: 2026/03/24 14:27:19 by rapheww          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,13 @@ void	expand_str(t_cmds **cmds, t_expand *exp, t_env *env, t_data **data)
 {
 	while ((*cmds)->cmds_quotes[exp->j][exp->i])
 	{
+		if (exp->i == 0 && (*cmds)->cmds[exp->j]
+			&& (*cmds)->cmds_quotes[exp->j][exp->i] == '$'
+			&& ft_strlen((*cmds)->cmds_quotes[exp->j]) == 3)
+		{
+			exp->result = strjoin_free(exp->result, "&&");
+			break ;
+		}
 		if (exp->i == 0 && (*cmds)->cmds[exp->j]
 			&& ft_strlen((*cmds)->cmds[exp->j]) == 1)
 		{

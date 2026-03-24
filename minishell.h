@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchaumei <rchaumei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rapheww <rapheww@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 22:47:45 by lchambos          #+#    #+#             */
-/*   Updated: 2026/03/23 19:01:16 by rchaumei         ###   ########.fr       */
+/*   Updated: 2026/03/24 15:12:06 by rapheww          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,7 @@ char				**build_cmd_quotes(t_token *token);
 
 // START MINISHELL
 int					launch_cmds(t_shell *shell);
-void				minishell(t_shell *shell);
+void				minishell(t_shell *shell, struct termios g_termios);
 t_env				*init_env(char **env);
 int					env_getsize(t_env *env);
 t_env				*env_new(char *key, char *value);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchaumei <rchaumei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rapheww <rapheww@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/23 15:23:03 by rchaumei          #+#    #+#             */
-/*   Updated: 2026/03/23 18:57:51 by rchaumei         ###   ########.fr       */
+/*   Updated: 2026/03/24 14:31:12 by rapheww          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,11 @@ void	make_echo(char **cmds)
 	}
 	while (cmds[i])
 	{
-		ft_putstr_fd(cmds[i], 1);
-		if (cmds[i + 1])
+		if (!cmds[i] && cmds[i + 1])
+			i++;
+		if (ft_strncmp(cmds[i], "&&", ft_strlen(cmds[i])))
+			ft_putstr_fd(cmds[i], 1);
+		if (cmds[i][0] && cmds[i + 1])
 			ft_putchar_fd(' ', 1);
 		i++;
 	}

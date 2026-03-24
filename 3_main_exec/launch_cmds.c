@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   launch_cmds.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchaumei <rchaumei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rapheww <rapheww@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 13:09:49 by lchambos          #+#    #+#             */
-/*   Updated: 2026/03/23 17:57:17 by rchaumei         ###   ########.fr       */
+/*   Updated: 2026/03/24 14:43:40 by rapheww          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,8 @@ int	launch_cmds(t_shell *s)
 		return (0);
 	if (s->data->flag == 1)
 		return (pipe_main(s->data->cmds, s));
+	if (!s->data->cmds->cmds)
+		return (0);
 	if (is_builtin(s->data->cmds->cmds[0]))
 	{
 		s->data->fd_in = dup(STDIN_FILENO);
