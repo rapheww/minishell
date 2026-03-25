@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   launch_cmds.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rapheww <rapheww@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lchambos <lchambos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 13:09:49 by lchambos          #+#    #+#             */
-/*   Updated: 2026/03/24 14:43:40 by rapheww          ###   ########.fr       */
+/*   Updated: 2026/03/25 00:27:53 by lchambos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int	make_built_in(t_cmds *cmds, t_data *data, t_env *env)
 	if (!ft_strncmp(str[0], "exit", 4) && ft_strlen(str[0]) == 4)
 		return (make_exit(cmds->cmds, &data));
 	if (str[0][0] == '$')
-		return (ft_putstr_fd(str[0], 1),
-			ft_putstr_fd(": command not found\n", 1), 127);
+		return (ft_putstr_fd(str[0], 1), ft_putstr_fd(": command not found\n",
+				1), 127);
 	if (!ft_strncmp(str[0], "echo", 4))
 		return (make_echo(cmds->cmds), 0);
 	if (!ft_strncmp(str[0], "export", 6) && ft_strlen(str[0]) == 6)
@@ -88,6 +88,7 @@ static int	redirect_exec(t_shell *s)
 	pid_t	pid;
 	int		exit_code;
 	int		status;
+	int		sig;
 
 	pid = fork();
 	exit_code = 0;
@@ -96,15 +97,21 @@ static int	redirect_exec(t_shell *s)
 		exit_error(1, s);
 	if (pid == 0)
 	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		redirect_cmd(s->data);
 		make_bin(s->data->cmds->cmds, s->env, s);
 	}
 	wait(&status);
-	if (WIFEXITED(status))
+	if (WIFSIGNALED(status))
+	{
+		sig = WTERMSIG(status);
+		if (sig == SIGQUIT)
+			write(2, "Quit (core dumped)\n", 19);
+		exit_code = 128 + sig;
+	}
+	else if (WIFEXITED(status))
 		exit_code = WEXITSTATUS(status);
-	else if (WIFSIGNALED(status))
-		exit_code = 128 + WTERMSIG(status);
-	unlink("infile.tmp");
 	return (exit_code);
 }
 

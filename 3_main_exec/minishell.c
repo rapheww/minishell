@@ -6,24 +6,13 @@
 /*   By: lchambos <lchambos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 19:57:09 by lchambos          #+#    #+#             */
-/*   Updated: 2026/03/24 19:48:16 by lchambos         ###   ########.fr       */
+/*   Updated: 2026/03/25 01:06:10 by lchambos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 pid_t		g_signal;
-
-void	handler(int num)
-{
-	printf("\n");
-	(void)num;
-	rl_replace_line("", 0);
-	g_signal = 1;
-	rl_on_new_line();
-	rl_redisplay();
-	return ;
-}
 
 static void	start_minishell(char *str, t_shell *shell)
 {
@@ -42,6 +31,11 @@ static void	start_minishell(char *str, t_shell *shell)
 	if (!shell->data)
 		return (free_lexer_null(&shell->lexer));
 	expand(&shell->data->cmds, shell->env, shell->data);
+	if (shell->heredoc_int)
+	{
+		free_between_lines(shell);
+		return ;
+	}
 	if (shell->lexer)
 		shell->env->exit_code = launch_cmds(shell);
 	if (shell->data->check_exit == 1)
@@ -60,6 +54,7 @@ void	minishell(t_shell *shell, struct termios g_termios)
 	line_read = NULL;
 	while (1)
 	{
+		shell->heredoc_int = 0;
 		tcsetattr(STDIN_FILENO, TCSANOW, &g_termios);
 		signal(SIGINT, handler);
 		signal(SIGQUIT, SIG_IGN);
@@ -87,6 +82,7 @@ t_shell	*init_shell(char **envp)
 	shell->env = init_env(envp);
 	shell->lexer = NULL;
 	shell->data = NULL;
+	shell->heredoc_int = 0;
 	return (shell);
 }
 

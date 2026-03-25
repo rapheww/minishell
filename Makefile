@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rapheww <rapheww@student.42.fr>            +#+  +:+       +#+         #
+#    By: lchambos <lchambos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/12 14:58:34 by lchambos          #+#    #+#              #
-#    Updated: 2026/03/24 15:12:09 by rapheww          ###   ########.fr        #
+#    Updated: 2026/03/25 01:05:44 by lchambos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,8 +41,9 @@ SRC =	1_lexer/lexer_token.c \
 		5_pipe/parsing_pipe.c \
 		5_pipe/pipe_exec.c \
 		5_pipe/utils_pipe.c \
-		6_free/free_struct.c \
-		6_free/free.c \
+		6_utils/free_struct.c \
+		6_utils/free.c \
+		6_utils/signal_handlers.c \
 		GNL/get_next_line.c \
 		GNL/get_next_line_utils.c
 

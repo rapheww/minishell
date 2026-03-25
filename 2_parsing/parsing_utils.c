@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchaumei <rchaumei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lchambos <lchambos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/23 17:31:18 by rchaumei          #+#    #+#             */
-/*   Updated: 2026/03/23 19:20:57 by rchaumei         ###   ########.fr       */
+/*   Updated: 2026/03/25 00:45:11 by lchambos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	define_heredoc(t_cmds **tmp_cmds, t_token **tmp, t_shell **shell)
 		return (1);
 	(*tmp_cmds)->heredoc = 2;
 	open_heredoc(*tmp_cmds, *shell);
+	if ((*shell)->heredoc_int)
+		return (1);
 	(*tmp) = (*tmp)->next;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: lchambos <lchambos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 22:47:45 by lchambos          #+#    #+#             */
-/*   Updated: 2026/03/24 19:59:12 by lchambos         ###   ########.fr       */
+/*   Updated: 2026/03/24 23:47:49 by lchambos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define MINISHELL_H
 
 # define USAGE "Please run the program with no arguments."
-# define HEREDOC "\nminishell: warning: heredoc delimited by EOF (wanted `"
+# define HEREDOC "minishell: warning: heredoc delimited by EOF (wanted `"
 
 # include "GNL/get_next_line.h"
 # include "libft/libft.h"
@@ -109,6 +109,7 @@ typedef struct s_shell
 	t_env			*env;
 	t_token			*lexer;
 	t_data			*data;
+	int				heredoc_int;
 }					t_shell;
 
 typedef struct s_expand
@@ -198,7 +199,7 @@ char				*get_exec(char *cmd, char **envp);
 char				*get_path(char *cmd, char **paths);
 void				open_infile(t_data *d, t_cmds *cmds, t_shell *shell);
 void				open_outfile(t_data *d, t_cmds *cmds);
-void					open_heredoc(t_cmds *cmds, t_shell *shell);
+void				open_heredoc(t_cmds *cmds, t_shell *shell);
 void				exit_error(int error_status, t_shell *shell);
 void				exit_error_full(int error_status, t_shell *shell);
 void				free_strs(char *str, char **strs);

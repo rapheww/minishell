@@ -6,7 +6,7 @@
 /*   By: lchambos <lchambos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 22:54:04 by lchambos          #+#    #+#             */
-/*   Updated: 2026/03/23 17:27:44 by lchambos         ###   ########.fr       */
+/*   Updated: 2026/03/24 22:54:39 by lchambos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,6 @@ static void	handle_cmd_error(char *cmd_name, char **path, char **envp,
 
 static void	execute_cmd(char *cmd_path, char **cmd, char **envp, t_shell *shell)
 {
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
 	execve(cmd_path, cmd, envp);
 	free_strs(cmd_path, NULL);
 	free_strs(NULL, envp);

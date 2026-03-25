@@ -6,7 +6,7 @@
 /*   By: lchambos <lchambos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 17:33:07 by lchambos          #+#    #+#             */
-/*   Updated: 2026/03/24 19:48:25 by lchambos         ###   ########.fr       */
+/*   Updated: 2026/03/25 00:09:58 by lchambos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,20 @@ int	msg(char *str1, char *str2, int erno)
 	return (erno);
 }
 
-static void	heredoc_handler(int sig)
-{
-	(void)sig;
-	write(1, "\n", 1);
-	return ;
-}
+// static void heredoc_handler(int sig)
+// {
+// 	(void)sig;
+// 	write(1, "\n", 1);
+// 	exit(130);
+// }
 
-void	heredoc_signal_handler(void)
-{
-	struct sigaction	sa;
+// void	heredoc_signal_handler(void)
+// {
+// 	struct sigaction	sa;
 
-	sigemptyset(&sa.sa_mask);
-	sa.sa_handler = heredoc_handler;
-	sigaction(SIGINT, &sa, NULL);
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGTSTP, SIG_IGN);
-}
+// 	sigemptyset(&sa.sa_mask);
+// 	sa.sa_handler = heredoc_handler;
+// 	sigaction(SIGINT, &sa, NULL);
+// 	signal(SIGQUIT, SIG_IGN);
+// 	signal(SIGTSTP, SIG_IGN);
+// }
