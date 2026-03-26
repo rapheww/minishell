@@ -6,7 +6,7 @@
 #    By: lchambos <lchambos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/12 14:58:34 by lchambos          #+#    #+#              #
-#    Updated: 2026/03/26 15:36:46 by lchambos         ###   ########.fr        #
+#    Updated: 2026/03/26 16:46:53 by lchambos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,9 @@ SRC =	1_lexer/lexer_token.c \
 		5_pipe/utils_pipe.c \
 		6_utils/free_struct.c \
 		6_utils/free.c \
-		6_utils/signal_handlers.c
+		6_utils/signal_handlers.c \
+		GNL/get_next_line.c \
+		GNL/get_next_line_utils.c
 
 OBJ = $(SRC:.c=.o)
 

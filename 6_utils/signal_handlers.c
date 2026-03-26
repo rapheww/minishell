@@ -6,7 +6,7 @@
 /*   By: lchambos <lchambos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 01:03:53 by lchambos          #+#    #+#             */
-/*   Updated: 2026/03/25 01:04:53 by lchambos         ###   ########.fr       */
+/*   Updated: 2026/03/26 17:18:00 by lchambos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static void	heredoc_handler(int sig)
 {
 	(void)sig;
 	write(1, "\n", 1);
-	exit(130);
 }
 
 void	heredoc_signal_handler(void)

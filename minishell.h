@@ -6,7 +6,7 @@
 /*   By: lchambos <lchambos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 22:47:45 by lchambos          #+#    #+#             */
-/*   Updated: 2026/03/26 15:36:49 by lchambos         ###   ########.fr       */
+/*   Updated: 2026/03/26 16:47:05 by lchambos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # define USAGE "Please run the program with no arguments."
 # define HEREDOC "minishell: warning: heredoc delimited by EOF (wanted `"
 
+# include "GNL/get_next_line.h"
 # include "libft/libft.h"
 # include <ctype.h>
 # include <dirent.h>
