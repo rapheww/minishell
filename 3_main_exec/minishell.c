@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchambos <lchambos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rchaumei <rchaumei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 19:57:09 by lchambos          #+#    #+#             */
-/*   Updated: 2026/03/25 01:06:10 by lchambos         ###   ########.fr       */
+/*   Updated: 2026/03/26 13:29:40 by rchaumei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	start_minishell(char *str, t_shell *shell)
 	}
 	shell->data = parse_lexer(&shell->lexer, &shell);
 	if (!shell->data)
-		return (free_lexer_null(&shell->lexer));
+		return (free_between_lines(shell));
 	expand(&shell->data->cmds, shell->env, shell->data);
 	if (shell->heredoc_int)
 	{

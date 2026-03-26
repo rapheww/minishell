@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   files_pipe.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchambos <lchambos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rchaumei <rchaumei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 23:53:26 by lchambos          #+#    #+#             */
-/*   Updated: 2026/03/25 01:04:15 by lchambos         ###   ########.fr       */
+/*   Updated: 2026/03/26 13:39:23 by rchaumei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ static void	loop_heredoc(int fd_tmp, t_cmds *cmds, t_shell *s)
 		if (ft_strcmp(line, cmds->limiter) == 0)
 		{
 			free(line);
+			exit_error_full(0, s);
 			break ;
 		}
 		write(fd_tmp, line, ft_strlen(line));
@@ -108,16 +109,13 @@ void	open_heredoc(t_cmds *cmds, t_shell *s)
 		close(fd_tmp);
 		exit(0);
 	}
-	else
+	close(fd_tmp);
+	waitpid(pid, &status, 0);
+	signal(SIGINT, handler);
+	if (WIFEXITED(status) && WEXITSTATUS(status) == 130)
 	{
-		close(fd_tmp);
-		waitpid(pid, &status, 0);
-		signal(SIGINT, handler);
-		if (WIFEXITED(status) && WEXITSTATUS(status) == 130)
-		{
-			s->env->exit_code = 130;
-			s->heredoc_int = 1;
-			return ;
-		}
+		s->env->exit_code = 130;
+		s->heredoc_int = 1;
+		return ;
 	}
 }
