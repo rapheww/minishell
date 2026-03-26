@@ -6,7 +6,7 @@
 /*   By: lchambos <lchambos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/23 17:31:18 by rchaumei          #+#    #+#             */
-/*   Updated: 2026/03/26 16:29:17 by lchambos         ###   ########.fr       */
+/*   Updated: 2026/03/26 18:38:12 by lchambos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	define_heredoc(t_cmds **tmp_cmds, t_token **tmp, t_shell **shell)
 	(*tmp) = (*tmp)->next;
 	if (!(*tmp))
 		return (1);
+	if ((*tmp_cmds)->limiter)
+		free((*tmp_cmds)->limiter);
 	(*tmp_cmds)->limiter = ft_strdup((*tmp)->value);
 	if (!(*tmp_cmds)->limiter)
 		return (1);

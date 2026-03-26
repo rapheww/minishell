@@ -6,7 +6,7 @@
 /*   By: lchambos <lchambos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 19:52:55 by lchambos          #+#    #+#             */
-/*   Updated: 2026/03/26 16:52:35 by lchambos         ###   ########.fr       */
+/*   Updated: 2026/03/26 18:23:46 by lchambos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,17 @@ char	*ft_strjoin2(char *s1, char *s2)
 	dest[j] = '\0';
 	free(s1);
 	return (dest);
+}
+
+void    free_gnl(int fd)
+{
+    char    *line;
+
+    line = get_next_line(fd);
+    while (line)
+    {
+        free(line);
+        line = get_next_line(fd);
+    }
+    close(fd);
 }

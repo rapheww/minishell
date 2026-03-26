@@ -6,7 +6,7 @@
 /*   By: lchambos <lchambos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 22:47:45 by lchambos          #+#    #+#             */
-/*   Updated: 2026/03/26 16:47:05 by lchambos         ###   ########.fr       */
+/*   Updated: 2026/03/26 18:20:32 by lchambos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define MINISHELL_H
 
 # define USAGE "Please run the program with no arguments."
-# define HEREDOC "minishell: warning: heredoc delimited by EOF (wanted `"
+# define HEREDOC "\nminishell: warning: heredoc delimited by EOF (wanted `"
 
 # include "GNL/get_next_line.h"
 # include "libft/libft.h"
@@ -157,6 +157,7 @@ char				*strjoin_free(char *s1, char *s2);
 void				change_state(int *state, char **cmds_quotes, int *i, int j);
 int					check_flag(char *str);
 int					return_var(char **result, t_env_var var);
+void				check_ending(t_cmds *cmds, t_shell *s);
 
 // FREE
 void				free_env(t_env *env);

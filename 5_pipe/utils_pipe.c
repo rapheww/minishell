@@ -6,7 +6,7 @@
 /*   By: lchambos <lchambos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 17:33:07 by lchambos          #+#    #+#             */
-/*   Updated: 2026/03/26 15:32:08 by lchambos         ###   ########.fr       */
+/*   Updated: 2026/03/26 18:20:13 by lchambos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,16 @@ int	msg(char *str1, char *str2, int erno)
 	write(2, test, ft_strlen(test));
 	free(test);
 	return (erno);
+}
+
+void	check_ending(t_cmds *cmds, t_shell *s)
+{
+	if (errno == EINTR)
+	{
+		s->heredoc_int = 1;
+		return ;
+	}
+	ft_putstr_fd(HEREDOC, 2);
+	msg(cmds->limiter, "')\n", 2);
+	return ;
 }

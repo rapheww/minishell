@@ -6,7 +6,7 @@
 /*   By: lchambos <lchambos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 18:29:11 by lchambos          #+#    #+#             */
-/*   Updated: 2026/03/26 16:53:14 by lchambos         ###   ########.fr       */
+/*   Updated: 2026/03/26 18:23:31 by lchambos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,12 @@
 # endif
 
 int		ft_strlen2(const char *str);
-
 char	*ft_strchr2(const char *s, int c);
-
 char	*ft_strcpy2(char *dest, char *src);
-
 char	*ft_strjoin2(char *s1, char *s2);
-
+void	free_gnl(int fd);
 char	*stock_remain(char *buffer);
-
 char	*read_lines(int fd, char *buffer);
-
 char	*get_next_line(int fd);
 
 #endif
