@@ -78,7 +78,7 @@ You should see a prompt similar to:
 
 minishell$
 
-You can now execute commands just like in Bash.
+You can now execute most commands just like in Bash.
 
 
 ## Resources
