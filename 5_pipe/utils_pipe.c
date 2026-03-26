@@ -6,7 +6,7 @@
 /*   By: lchambos <lchambos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 17:33:07 by lchambos          #+#    #+#             */
-/*   Updated: 2026/03/25 00:09:58 by lchambos         ###   ########.fr       */
+/*   Updated: 2026/03/26 15:32:08 by lchambos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	exit_error(int error_status, t_shell *shell)
 
 void	exit_error_full(int error_status, t_shell *shell)
 {
-	unlink("infile.tmp");
 	free_shell(shell);
 	exit(error_status);
 }
@@ -35,21 +34,3 @@ int	msg(char *str1, char *str2, int erno)
 	free(test);
 	return (erno);
 }
-
-// static void heredoc_handler(int sig)
-// {
-// 	(void)sig;
-// 	write(1, "\n", 1);
-// 	exit(130);
-// }
-
-// void	heredoc_signal_handler(void)
-// {
-// 	struct sigaction	sa;
-
-// 	sigemptyset(&sa.sa_mask);
-// 	sa.sa_handler = heredoc_handler;
-// 	sigaction(SIGINT, &sa, NULL);
-// 	signal(SIGQUIT, SIG_IGN);
-// 	signal(SIGTSTP, SIG_IGN);
-// }

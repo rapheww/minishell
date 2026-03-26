@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   files_pipe.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchaumei <rchaumei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lchambos <lchambos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 23:53:26 by lchambos          #+#    #+#             */
-/*   Updated: 2026/03/26 13:39:23 by rchaumei         ###   ########.fr       */
+/*   Updated: 2026/03/26 15:19:57 by lchambos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,11 @@ static void	loop_heredoc_empty(t_cmds *cmds)
 	}
 }
 
-static void	loop_heredoc(int fd_tmp, t_cmds *cmds, t_shell *s)
+static void	loop_heredoc(int fd_in, int fd_tmp, t_cmds *cmds, t_shell *s)
 {
 	char	*line;
 
+	(void)fd_in;
 	line = NULL;
 	while (1)
 	{
@@ -77,6 +78,7 @@ static void	loop_heredoc(int fd_tmp, t_cmds *cmds, t_shell *s)
 		if (ft_strcmp(line, cmds->limiter) == 0)
 		{
 			free(line);
+			close(fd_tmp);
 			exit_error_full(0, s);
 			break ;
 		}
@@ -103,7 +105,7 @@ void	open_heredoc(t_cmds *cmds, t_shell *s)
 	{
 		heredoc_signal_handler();
 		if (cmds->heredoc == 2)
-			loop_heredoc(fd_tmp, cmds, s);
+			loop_heredoc(STDIN_FILENO, fd_tmp, cmds, s);
 		else
 			loop_heredoc_empty(cmds);
 		close(fd_tmp);

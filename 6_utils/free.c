@@ -6,7 +6,7 @@
 /*   By: lchambos <lchambos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 15:26:52 by lchambos          #+#    #+#             */
-/*   Updated: 2026/03/25 00:06:50 by lchambos         ###   ########.fr       */
+/*   Updated: 2026/03/26 15:29:51 by lchambos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ void	free_shell_no_env(t_shell *shell)
 		shell->lexer = NULL;
 	}
 	free(shell);
-	unlink("infile.tmp");
 }
 
 void	free_shell(t_shell *shell)
@@ -96,6 +95,5 @@ void	free_shell(t_shell *shell)
 		free_env(shell->env);
 		shell->env = NULL;
 	}
-	unlink("infile.tmp");
 	free(shell);
 }

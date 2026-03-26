@@ -6,7 +6,7 @@
 /*   By: lchambos <lchambos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 13:09:49 by lchambos          #+#    #+#             */
-/*   Updated: 2026/03/25 00:27:53 by lchambos         ###   ########.fr       */
+/*   Updated: 2026/03/26 15:26:16 by lchambos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,10 @@ static int	check_infile(int fd, t_data *data)
 	{
 		fd = open("infile.tmp", O_RDONLY);
 		if (fd == -1)
+		{
+			printf("%d\n", data->cmds->heredoc);
 			return (1);
+		}
 		dup2(fd, STDIN_FILENO);
 		close(fd);
 	}
