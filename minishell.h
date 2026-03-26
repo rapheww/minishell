@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchambos <lchambos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rchaumei <rchaumei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 22:47:45 by lchambos          #+#    #+#             */
-/*   Updated: 2026/03/26 18:20:32 by lchambos         ###   ########.fr       */
+/*   Updated: 2026/03/26 18:59:39 by rchaumei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,8 @@ void				change_state(int *state, char **cmds_quotes, int *i, int j);
 int					check_flag(char *str);
 int					return_var(char **result, t_env_var var);
 void				check_ending(t_cmds *cmds, t_shell *s);
+int					is_directory(char **path);
+int					first_is_directory(char *path);
 
 // FREE
 void				free_env(t_env *env);
@@ -193,6 +195,9 @@ t_env				*env_new(char *key, char *value);
 int					env_addback(t_env **env, t_env *new);
 void				handler(int num);
 void				heredoc_signal_handler(void);
+void				redirect_exec_utils(t_shell *s);
+int					start_cmds(t_shell *shell);
+int					redirect_cmd(t_data *data);
 
 // Pipex part
 char				*get_cmd(char *cmd, t_shell *shell);

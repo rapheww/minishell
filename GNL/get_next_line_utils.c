@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchambos <lchambos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rchaumei <rchaumei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 19:52:55 by lchambos          #+#    #+#             */
-/*   Updated: 2026/03/26 18:23:46 by lchambos         ###   ########.fr       */
+/*   Updated: 2026/03/26 19:55:17 by rchaumei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,15 +81,15 @@ char	*ft_strjoin2(char *s1, char *s2)
 	return (dest);
 }
 
-void    free_gnl(int fd)
+void	free_gnl(int fd)
 {
-    char    *line;
+	char	*line;
 
-    line = get_next_line(fd);
-    while (line)
-    {
-        free(line);
-        line = get_next_line(fd);
-    }
-    close(fd);
+	line = get_next_line(fd);
+	while (line)
+	{
+		free(line);
+		line = get_next_line(fd);
+	}
+	close(fd);
 }

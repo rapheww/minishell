@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchambos <lchambos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rchaumei <rchaumei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 19:57:09 by lchambos          #+#    #+#             */
-/*   Updated: 2026/03/26 16:07:13 by lchambos         ###   ########.fr       */
+/*   Updated: 2026/03/26 18:15:29 by rchaumei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ pid_t		g_signal;
 
 static void	start_minishell(char *str, t_shell *shell)
 {
-	int	exit_code;
-
 	add_history(str);
 	shell->lexer = start_lexer(str);
 	if (!shell->lexer)
@@ -31,19 +29,8 @@ static void	start_minishell(char *str, t_shell *shell)
 	if (!shell->data)
 		return (free_between_lines(shell));
 	expand(&shell->data->cmds, shell->env, shell->data);
-	if (shell->heredoc_int)
-	{
-		free_between_lines(shell);
+	if (start_cmds(shell))
 		return ;
-	}
-	if (shell->lexer)
-		shell->env->exit_code = launch_cmds(shell);
-	if (shell->data->check_exit == 1)
-	{
-		exit_code = shell->env->exit_code;
-		free_shell(shell);
-		exit(exit_code % 256);
-	}
 	free_between_lines(shell);
 }
 

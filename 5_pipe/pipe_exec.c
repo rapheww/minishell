@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchambos <lchambos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rchaumei <rchaumei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 14:20:02 by lchambos          #+#    #+#             */
-/*   Updated: 2026/03/23 17:26:38 by lchambos         ###   ########.fr       */
+/*   Updated: 2026/03/26 19:48:57 by rchaumei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,10 @@ static void	child_proc(t_cmds *cmds, t_shell *s, int prev_fd)
 	built = make_built_in(cmds, s->data, s->env);
 	if (!built)
 		exit_error_full(0, s);
+	if (first_is_directory(cmds->cmds[0]))
+		exit_error_full(126, s);
+	if (is_directory(cmds->cmds))
+		exit_error_full(1, s);
 	envp = dup_env(s->env, NULL);
 	if (!envp)
 		exit_error_full(1, s);

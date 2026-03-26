@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   launch_cmds.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchambos <lchambos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rchaumei <rchaumei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 13:09:49 by lchambos          #+#    #+#             */
-/*   Updated: 2026/03/26 15:26:16 by lchambos         ###   ########.fr       */
+/*   Updated: 2026/03/26 19:56:22 by rchaumei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static int	check_infile(int fd, t_data *data)
 	return (0);
 }
 
-static int	redirect_cmd(t_data *data)
+int	redirect_cmd(t_data *data)
 {
 	int	fd;
 
@@ -99,12 +99,7 @@ static int	redirect_exec(t_shell *s)
 	if (pid == -1)
 		exit_error(1, s);
 	if (pid == 0)
-	{
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
-		redirect_cmd(s->data);
-		make_bin(s->data->cmds->cmds, s->env, s);
-	}
+		redirect_exec_utils(s);
 	wait(&status);
 	if (WIFSIGNALED(status))
 	{
@@ -120,8 +115,6 @@ static int	redirect_exec(t_shell *s)
 
 int	launch_cmds(t_shell *s)
 {
-	int	exit_code;
-
 	if (!s->data->cmds)
 		return (0);
 	if (s->data->flag == 1)
@@ -134,12 +127,16 @@ int	launch_cmds(t_shell *s)
 		s->data->fd_out = dup(STDOUT_FILENO);
 		if (redirect_cmd(s->data))
 			return (1);
-		exit_code = make_built_in(s->data->cmds, s->data, s->env);
+		s->env->exit_code = make_built_in(s->data->cmds, s->data, s->env);
 		dup2(s->data->fd_in, STDIN_FILENO);
 		dup2(s->data->fd_out, STDOUT_FILENO);
 		close(s->data->fd_in);
 		close(s->data->fd_out);
-		return (exit_code);
+		return (s->env->exit_code);
 	}
+	if (first_is_directory(s->data->cmds->cmds[0]))
+		return (126);
+	if (is_directory(s->data->cmds->cmds))
+		return (1);
 	return (redirect_exec(s));
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lchambos <lchambos@student.42.fr>          +#+  +:+       +#+         #
+#    By: rchaumei <rchaumei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/12 14:58:34 by lchambos          #+#    #+#              #
-#    Updated: 2026/03/26 16:46:53 by lchambos         ###   ########.fr        #
+#    Updated: 2026/03/26 18:54:16 by rchaumei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRC =	1_lexer/lexer_token.c \
 		3_main_exec/cmd_type.c \
 		3_main_exec/init_minishell.c \
 		3_main_exec/launch_cmds.c \
+		3_main_exec/main_utils.c \
 		3_main_exec/minishell.c \
 		4_builtins/builtin_cd.c \
 		4_builtins/builtin_echo.c \

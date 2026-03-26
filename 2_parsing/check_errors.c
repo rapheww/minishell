@@ -3,23 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   check_errors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rapheww <rapheww@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rchaumei <rchaumei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 21:48:08 by rchaumei          #+#    #+#             */
-/*   Updated: 2026/03/24 15:13:52 by rapheww          ###   ########.fr       */
+/*   Updated: 2026/03/26 19:53:09 by rchaumei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// static int	is_directory(const char *path)
-// {
-// 	struct stat	st;
+int	is_directory(char **path)
+{
+	struct stat	st;
+	int			i;
 
-// 	if (lstat(path, &st) == -1)
-// 		return (0);
-// 	return (S_ISDIR(st.st_mode));
-// }
+	i = 0;
+	if (!path)
+		return (0);
+	while (path[i])
+	{
+		if (stat(path[i], &st) == -1)
+			return (0);
+		if (S_ISDIR(st.st_mode))
+			return (msg(path[i], ": Is a directory\n", 2), 1);
+		i++;
+	}
+	return (0);
+}
 
 static char	*token_value(t_token_type type)
 {
