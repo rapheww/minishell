@@ -6,7 +6,7 @@
 /*   By: lchambos <lchambos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 21:22:11 by lchambos          #+#    #+#             */
-/*   Updated: 2026/03/23 13:24:20 by lchambos         ###   ########.fr       */
+/*   Updated: 2026/03/30 19:06:37 by lchambos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	make_cd(t_env *env, char **str)
 		return (0);
 	}
 	if (chdir(str[1]) == -1)
-		return (msg("cd: no such file or directory: %s\n", str[1], 127));
+		return (msg3("cd: no such file or directory: ", str[1], "\n", 127));
 	change_pwd(env, 0);
 	return (0);
 }

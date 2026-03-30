@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchaumei <rchaumei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lchambos <lchambos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 14:20:02 by lchambos          #+#    #+#             */
-/*   Updated: 2026/03/26 19:48:57 by rchaumei         ###   ########.fr       */
+/*   Updated: 2026/03/30 19:37:07 by lchambos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,15 @@ static void	child_proc(t_cmds *cmds, t_shell *s, int prev_fd)
 		exit_error_full(126, s);
 	if (is_directory(cmds->cmds))
 		exit_error_full(1, s);
-	envp = dup_env(s->env, NULL);
-	if (!envp)
-		exit_error_full(1, s);
 	path = get_cmd(cmds->cmds[0], s);
 	if (!path)
 		exit_error_full(msg(cmds->cmds[0], ": command not found\n", 127), s);
+	envp = dup_env(s->env, NULL);
+	if (!envp)
+	{
+		free(path);
+		exit_error_full(1, s);
+	}
 	execve(path, cmds->cmds, envp);
 	free_strs(path, envp);
 	exit_error_full(1, s);

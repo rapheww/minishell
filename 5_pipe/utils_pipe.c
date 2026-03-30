@@ -6,7 +6,7 @@
 /*   By: lchambos <lchambos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 17:33:07 by lchambos          #+#    #+#             */
-/*   Updated: 2026/03/26 18:20:13 by lchambos         ###   ########.fr       */
+/*   Updated: 2026/03/30 19:08:02 by lchambos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,19 @@ int	msg(char *str1, char *str2, int erno)
 	test = ft_strjoin(str1, str2);
 	write(2, test, ft_strlen(test));
 	free(test);
+	return (erno);
+}
+
+int	msg3(char *str1, char *str2, char *str3, int erno)
+{
+	char	*test;
+	char	*test2;
+
+	test = ft_strjoin(str1, str2);
+	test2 = ft_strjoin(test, str3);
+	write(2, test2, ft_strlen(test2));
+	free(test);
+	free(test2);
 	return (erno);
 }
 

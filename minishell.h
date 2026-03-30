@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchaumei <rchaumei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lchambos <lchambos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 22:47:45 by lchambos          #+#    #+#             */
-/*   Updated: 2026/03/26 18:59:39 by rchaumei         ###   ########.fr       */
+/*   Updated: 2026/03/30 20:58:49 by lchambos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,8 +201,6 @@ int					redirect_cmd(t_data *data);
 
 // Pipex part
 char				*get_cmd(char *cmd, t_shell *shell);
-char				*get_exec(char *cmd, char **envp);
-char				*get_path(char *cmd, char **paths);
 void				open_infile(t_data *d, t_cmds *cmds, t_shell *shell);
 void				open_outfile(t_data *d, t_cmds *cmds);
 void				open_heredoc(t_cmds *cmds, t_shell *shell);
@@ -210,6 +208,7 @@ void				exit_error(int error_status, t_shell *shell);
 void				exit_error_full(int error_status, t_shell *shell);
 void				free_strs(char *str, char **strs);
 int					msg(char *str1, char *str2, int erno);
+int					msg3(char *str1, char *str2, char *str3, int erno);
 int					pipe_main(t_cmds *cmds, t_shell *shell);
 
 #endif

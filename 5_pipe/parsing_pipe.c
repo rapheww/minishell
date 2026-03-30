@@ -12,18 +12,18 @@
 
 #include "../minishell.h"
 
-char	*get_exec(char *cmd, char **env)
+static char	*get_exec(char *cmd, t_env *env)
 {
 	char	*full;
 	char	**paths;
 
 	if (!cmd || !*cmd || !env)
 		return (NULL);
-	while ((*env) && ft_strncmp((*env), "PATH=", 5) != 0)
-		env++;
-	if (!(*env))
+	while (env && ft_strncmp(env->key, "PATH", 5) != 0)
+		env = env->next;
+	if (!env)
 		return (NULL);
-	paths = ft_split((*env) + 5, ':');
+	paths = ft_split(env->value, ':');
 	if (!paths)
 		return (NULL);
 	full = get_path(cmd, paths);
@@ -35,7 +35,7 @@ char	*get_exec(char *cmd, char **env)
 	return (full);
 }
 
-char	*get_path(char *cmd, char **paths)
+static char	*get_path(char *cmd, char **paths)
 {
 	char	*full;
 	char	*tmp;
@@ -65,11 +65,7 @@ char	*get_cmd(char *cmd, t_shell *s)
 {
 	char	**cmd1;
 	char	*cmd_path;
-	char	**envp;
 
-	envp = dup_env(s->env, NULL);
-	if (!envp)
-		exit_error_full(1, s);
 	if (access(cmd, F_OK) == 0)
 	{
 		if (access(cmd, X_OK) == 0)
@@ -84,7 +80,7 @@ char	*get_cmd(char *cmd, t_shell *s)
 		free_strs(NULL, cmd1);
 		exit_error_full(0, s);
 	}
-	cmd_path = get_exec(cmd1[0], envp);
+	cmd_path = get_exec(cmd1[0], s->env);
 	free_strs(NULL, cmd1);
 	return (cmd_path);
 }
