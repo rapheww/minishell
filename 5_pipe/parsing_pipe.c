@@ -12,29 +12,6 @@
 
 #include "../minishell.h"
 
-static char	*get_exec(char *cmd, t_env *env)
-{
-	char	*full;
-	char	**paths;
-
-	if (!cmd || !*cmd || !env)
-		return (NULL);
-	while (env && ft_strncmp(env->key, "PATH", 5) != 0)
-		env = env->next;
-	if (!env)
-		return (NULL);
-	paths = ft_split(env->value, ':');
-	if (!paths)
-		return (NULL);
-	full = get_path(cmd, paths);
-	if (!full)
-	{
-		free_strs(NULL, paths);
-		return (NULL);
-	}
-	return (full);
-}
-
 static char	*get_path(char *cmd, char **paths)
 {
 	char	*full;
@@ -59,6 +36,29 @@ static char	*get_path(char *cmd, char **paths)
 		i++;
 	}
 	return (0);
+}
+
+static char	*get_exec(char *cmd, t_env *env)
+{
+	char	*full;
+	char	**paths;
+
+	if (!cmd || !*cmd || !env)
+		return (NULL);
+	while (env && ft_strncmp(env->key, "PATH", 5) != 0)
+		env = env->next;
+	if (!env)
+		return (NULL);
+	paths = ft_split(env->value, ':');
+	if (!paths)
+		return (NULL);
+	full = get_path(cmd, paths);
+	if (!full)
+	{
+		free_strs(NULL, paths);
+		return (NULL);
+	}
+	return (full);
 }
 
 char	*get_cmd(char *cmd, t_shell *s)

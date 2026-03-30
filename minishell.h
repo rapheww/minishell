@@ -6,7 +6,7 @@
 /*   By: lchambos <lchambos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 22:47:45 by lchambos          #+#    #+#             */
-/*   Updated: 2026/03/30 20:58:49 by lchambos         ###   ########.fr       */
+/*   Updated: 2026/03/30 23:11:39 by lchambos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <dirent.h>
 # include <errno.h>
 # include <fcntl.h>
+# include <limits.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
